@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public bool jumping = false;
+    public bool canJump = true;
     public float yVelocity = 0.0f;
 
     private void OnJump()
     {
-        if (!jumping)
+        if (canJump)
         {
-            jumping = true;
+            canJump = false;
             yVelocity = 8.0f;
         }
     }
@@ -24,9 +24,10 @@ public class PlayerScript : MonoBehaviour
             transform.position = new Vector3(pos.x, pos.y + yVelocity * Time.deltaTime, pos.z);
         }
         
+		// should be "if on ground"
         if (transform.position.y < 0)
         {
-            jumping = false;
+            canJump = true;
             yVelocity = 0.0f;
             transform.position = new Vector3(pos.x, 0, pos.z);
         }
