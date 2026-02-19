@@ -387,13 +387,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4694107784827465738, guid: f925dfe942847494aa3ab0d5eae711ce, type: 3}
+      propertyPath: currentStates.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694107784827465738, guid: f925dfe942847494aa3ab0d5eae711ce, type: 3}
+      propertyPath: currentActions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694107784827465738, guid: f925dfe942847494aa3ab0d5eae711ce, type: 3}
+      propertyPath: currentStates.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694107784827465738, guid: f925dfe942847494aa3ab0d5eae711ce, type: 3}
+      propertyPath: currentStates.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694107784827465738, guid: f925dfe942847494aa3ab0d5eae711ce, type: 3}
+      propertyPath: currentActions.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694107784827465738, guid: f925dfe942847494aa3ab0d5eae711ce, type: 3}
+      propertyPath: currentActions.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7748952186402529202, guid: f925dfe942847494aa3ab0d5eae711ce, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8175114069394811117, guid: f925dfe942847494aa3ab0d5eae711ce, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8175114069394811117, guid: f925dfe942847494aa3ab0d5eae711ce, type: 3}
       propertyPath: m_LocalPosition.x
@@ -518,7 +542,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!1 &1184284955
 GameObject:

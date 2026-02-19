@@ -1,5 +1,5 @@
 {
-    "name": "InputActions",
+    "name": "GameInput",
     "maps": [
         {
             "name": "Main",
@@ -12,7 +12,7 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -20,7 +20,7 @@
                     "name": "",
                     "id": "2a5e5fc1-8e38-473d-a76d-73e859829800",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
