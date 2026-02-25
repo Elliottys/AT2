@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7551293894062779515}
   - component: {fileID: 9041076437143355243}
   - component: {fileID: 2000938117729646186}
-  - component: {fileID: 7192079580359140208}
+  - component: {fileID: 8053906118947821821}
   m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2941523730940650702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8175114069394811117}
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2941523730940650702}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2000938117729646186
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -82,19 +82,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7192079580359140208
-CapsuleCollider:
+--- !u!135 &8053906118947821821
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2941523730940650702}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7748952186402529202
 GameObject:
@@ -106,11 +105,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8175114069394811117}
   - component: {fileID: 4044454257259497546}
+  - component: {fileID: 2446576549010180148}
   - component: {fileID: 4694107784827465738}
   - component: {fileID: 6748359670392714926}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,6 +143,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.25
   m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!54 &2446576549010180148
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7748952186402529202}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &4694107784827465738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,10 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4da769419442b40accce552564d499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canJump: 1
-  yVelocity: 0
-  gravity: 16
-  jumpHeight: 8
+  direction: {x: 1, y: 0, z: 0}
+  speed: 5
+  gravityInverted: 0
 --- !u!114 &6748359670392714926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +203,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4694107784827465738}
         m_TargetAssemblyTypeName: PlayerScript, Assembly-CSharp
-        m_MethodName: JumpInput
+        m_MethodName: ButtonInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

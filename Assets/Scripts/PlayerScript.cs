@@ -1,81 +1,47 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
-    public enum PlayerActions { None, Dead, Grounded, Walking, Running, InAir, Jumping}
-    public List<PlayerActions> currentActions;
+    // todo: lerp towards gravityDirection by direction amount that increases/decreases?
 
-    
-    public bool tryingJump = false;
+    public Vector3 moveDirection;
+    public Vector3 gravityDirection;
+    public float speed;
+    public bool gravityInverted;
 
-    [SerializeField] private float yVelocity = 0.0f;
-    [SerializeField] private float gravity = 16.0f;
-    [SerializeField] private float jumpHeight = 8.0f;
+    private Rigidbody body;
 
-    public void JumpInput(InputAction.CallbackContext context)
+    public void ButtonInput(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
         {
-            tryingJump = true;
+            gravityInverted = true;
         }
 
         if (context.phase == InputActionPhase.Canceled)
         {
-            tryingJump = false;
+            gravityInverted = false;
         }
     }
 
-    private void JumpAction()
+    public void Start()
     {
-        if (currentActions.Contains(PlayerActions.Jumping))
-        {
-            
-        }
+        body = GetComponent<Rigidbody>();
     }
-    
-    private void InAirAction()
+
+    public void Update()
     {
-        Vector3 pos = transform.position;
-
-        // Replace this with an actual check for being grounded
-        if (transform.position.y < 0)
+        body.velocity = moveDirection * speed;
+        if (gravityInverted)
         {
-            //currentActions.RemoveAll(PlayerActions.InAir);
-            yVelocity = 0.0f;
-            transform.position = new Vector3(pos.x, 0, pos.z);
+            body.velocity -= gravityDirection;
         }
-
-        // should be "if not grounded"
-        if (yVelocity != 0)
+        else
         {
-            yVelocity -= gravity * Time.deltaTime;
-            transform.position = new Vector3(pos.x, pos.y + yVelocity * Time.deltaTime, pos.z);
+            body.velocity += gravityDirection;
         }
     }
-
-    private void Update()
-    {
-        Vector3 pos = transform.position;
-
-        // should be "if grounded"
-        if (transform.position.y < 0)
-        {
-            tryingJump = true;
-            yVelocity = 0.0f;
-            transform.position = new Vector3(pos.x, 0, pos.z);
-        }
-
-        // should be "if not grounded"
-        if (yVelocity != 0)
-        {
-            yVelocity -= gravity * Time.deltaTime;
-            transform.position = new Vector3(pos.x, pos.y + yVelocity * Time.deltaTime, pos.z);
-        }
-        
-    }
-
 }
 
 

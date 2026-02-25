@@ -6,7 +6,7 @@
             "id": "5b703ef2-ec09-4b55-98c6-3cb31e9925b0",
             "actions": [
                 {
-                    "name": "Jump",
+                    "name": "Button",
                     "type": "Button",
                     "id": "83860c20-7fa3-4152-9412-e1734387b58b",
                     "expectedControlType": "Button",
@@ -19,11 +19,44 @@
                 {
                     "name": "",
                     "id": "2a5e5fc1-8e38-473d-a76d-73e859829800",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/anyKey",
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92842596-52c1-49d6-a4b3-affda7bb0b79",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "daff30d1-cedd-4ef6-88d9-cd6a40583a1b",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b50a966f-3930-4a33-b5e1-8add0355312a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
