@@ -171,8 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4da769419442b40accce552564d499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 1, y: 0, z: 0}
+  cameraOffsetX: 4.25
+  cameraOffsetY: -8
   speed: 5
+  moveDirection: {x: 0, y: 0, z: 0}
+  gravityDirection: {x: 0, y: 0, z: 0}
   gravityInverted: 0
 --- !u!114 &6748359670392714926
 MonoBehaviour:
