@@ -5,8 +5,9 @@ public class PlayerScript : MonoBehaviour
 {
     // todo: lerp towards gravityDirection by direction amount that increases/decreases?
 
-    public float cameraOffsetX;
-    public float cameraOffsetY;
+    public GameObject redMesh;
+    public GameObject bluMesh;
+
     public float speed;
     public Vector3 moveDirection;
     public Vector3 gravityDirection;
@@ -20,6 +21,7 @@ public class PlayerScript : MonoBehaviour
         if (context.phase == InputActionPhase.Performed)
         {
             gravityInverted = !gravityInverted;
+            UpdateMesh();
         }
     }
 
@@ -27,11 +29,25 @@ public class PlayerScript : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         mainCamera = Camera.main;
+        UpdateMesh();
+    }
+
+    public void UpdateMesh()
+    {
+        if (gravityInverted)
+        {
+            redMesh.SetActive(false);
+            bluMesh.SetActive(true);
+        }
+        else
+        {
+            redMesh.SetActive(true);
+            bluMesh.SetActive(false);
+        }
     }
 
     public void Update()
     {
-        mainCamera.transform.position = new Vector3(transform.position.x, cameraOffsetX, cameraOffsetY);
         body.velocity = moveDirection * speed;
         if (gravityInverted)
         {
