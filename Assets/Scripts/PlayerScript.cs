@@ -3,15 +3,30 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
-    // todo: lerp towards gravityDirection by direction amount that increases/decreases?
+    public Renderer material;
 
-    public GameObject redMesh;
-    public GameObject bluMesh;
+    public LayerMask collisionDetectionLayer;
 
-    public float speed;
     public Vector3 moveDirection;
     public Vector3 gravityDirection;
-    public bool gravityInverted;
+
+    public float speed;
+
+    public float initialAcceleration;
+    public float increasingAcceleration;
+    public float maxAcceleration;
+
+    public float groundTouching;
+    public float groundMaxDistance;
+
+    private bool onGround;
+
+    private enum MagnetTypes { red, blu };
+    private MagnetTypes magnetType;
+
+    private float acceleration = 0.0f;
+    private float gravityInvertion = 1.0f;
+
 
     private Rigidbody body;
     private Camera mainCamera;
@@ -20,44 +35,101 @@ public class PlayerScript : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            gravityInverted = !gravityInverted;
-            UpdateMesh();
+            SetMagneticState(GetOppositePole(magnetType));
         }
     }
 
-    public void Start()
+    private MagnetTypes GetOppositePole(MagnetTypes type)
     {
-        body = GetComponent<Rigidbody>();
-        mainCamera = Camera.main;
+        if (type == MagnetTypes.red)
+        {
+            return MagnetTypes.blu;
+        }
+        else
+        {
+            return MagnetTypes.red;
+        }
+    }
+
+    private void UpdateMesh()
+    {
+        MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+        switch (magnetType)
+        {
+            case MagnetTypes.red:
+                {
+                    propertyBlock.SetColor("_Color", new Color(1.0f, 0.0f, 0.0f));
+                    break;
+                }
+            case MagnetTypes.blu:
+                {
+                    propertyBlock.SetColor("_Color", new Color(0.0f, 0.0f, 1.0f));
+                    break;
+                }
+            default:
+                {
+                    Debug.LogError("Invalid magnet type");
+                    break;
+                }
+        }
+        material.SetPropertyBlock(propertyBlock);
+    }
+
+    private void SetMagneticState(MagnetTypes newType)
+    {
+        magnetType = newType;
+        onGround = false;
+        acceleration = 1.0f;
+        gravityInvertion *= -1.0f;
         UpdateMesh();
     }
 
-    public void UpdateMesh()
+    private void CheckForGround()
     {
-        if (gravityInverted)
+        Debug.DrawRay(transform.position, (gravityDirection * groundMaxDistance) * gravityInvertion, Color.yellow);
+
+        if (Physics.Raycast(transform.position, gravityDirection * gravityInvertion, out RaycastHit hit, groundMaxDistance, collisionDetectionLayer))
         {
-            redMesh.SetActive(false);
-            bluMesh.SetActive(true);
+            // Our raycast detected a floor within acceptable distance, become grounded and snap to floor if we are still airborne
+            if (!onGround)
+            {
+                onGround = true;
+            }
+            transform.position = hit.point + (Vector3.up * gravityInvertion) * groundTouching;
         }
         else
         {
-            redMesh.SetActive(true);
-            bluMesh.SetActive(false);
+            if (onGround)
+            {
+                onGround = false;
+            }
         }
     }
 
-    public void Update()
+    private void Start()
     {
+        mainCamera = Camera.main;
+        body = GetComponent<Rigidbody>();
+
+        SetMagneticState(MagnetTypes.red);
+    }
+
+    private void FixedUpdate()
+    {
+        // First we update our speed and move direction
         body.velocity = moveDirection * speed;
-        if (gravityInverted)
+
+        CheckForGround();
+
+        if (onGround)
         {
-            body.velocity -= gravityDirection;
+            acceleration = 0.0f;
         }
         else
         {
-            body.velocity += gravityDirection;
+            acceleration = Mathf.Clamp(acceleration + increasingAcceleration, 0, maxAcceleration);
+
+            body.velocity += (gravityDirection * acceleration) * gravityInvertion;
         }
     }
 }
-
-
