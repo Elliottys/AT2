@@ -190,6 +190,12 @@ public class PlayerScript : MonoBehaviour
         // First we update our speed and move direction
         newSpeedDuration -= Time.deltaTime;
 
+        if (transform.position.y > 99 || transform.position.y < 99 || transform.position.x < -50 || transform.position.x > 400)
+        {
+            moveDirection = defaultMoveDirection;
+            Respawn();
+        }
+
         if (newSpeedDuration < 0.0f)
         {
             body.velocity = defaultMoveDirection * speed;
