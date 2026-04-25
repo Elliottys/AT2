@@ -188,5 +188,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 552c34f493b2a8c4fa0261e38ee1b9dd, type: 3}
   - {fileID: 8300000, guid: 0b0b20c1d31975c47b1e82594f069879, type: 3}
   bgm: {fileID: 3624023044122081473}
+  modulesPassed: 0
+  maxModules: 9
   secondsIncreaseDifficulty: 30
   maxDifficulty: 8
