@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
+    public Transform mesh;
     public Renderer material;
 
     public LayerMask collisionDetectionLayer;
@@ -19,23 +20,23 @@ public class PlayerScript : MonoBehaviour
     public float groundTouching;
     public float groundMaxDistance;
 
-    private bool onGround;
+    [SerializeField] private bool onGround;
 
-    private enum MagnetTypes { red, blu };
-    private MagnetTypes magnetType;
+    [SerializeField] private enum MagnetTypes { red, blu };
+    [SerializeField] private MagnetTypes magnetType;
 
-    private float acceleration = 0.0f;
-    private float gravityInvertion = 1.0f;
+    [SerializeField] private float acceleration = 0.0f;
+    [SerializeField] private float gravityInvertion = 1.0f;
 
 
-    private Rigidbody body;
-    private Camera mainCamera;
+    [SerializeField] private Rigidbody body;
+    [SerializeField] private Camera mainCamera;
 
     public void ButtonInput(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            SetMagneticState(GetOppositePole(magnetType));
+            SetMagneticState(GetOppositePole(magnetType), true);
         }
     }
 
@@ -75,27 +76,30 @@ public class PlayerScript : MonoBehaviour
         material.SetPropertyBlock(propertyBlock);
     }
 
-    private void SetMagneticState(MagnetTypes newType)
+    private void SetMagneticState(MagnetTypes newType, bool flipGravity)
     {
         magnetType = newType;
         onGround = false;
         acceleration = 1.0f;
-        gravityInvertion *= -1.0f;
+        if (flipGravity)
+        {
+            gravityInvertion *= -1.0f;
+        }
         UpdateMesh();
     }
 
-    private void CheckForGround()
+    private bool CheckIfGrounded()
     {
         Debug.DrawRay(transform.position, (gravityDirection * groundMaxDistance) * gravityInvertion, Color.yellow);
 
         if (Physics.Raycast(transform.position, gravityDirection * gravityInvertion, out RaycastHit hit, groundMaxDistance, collisionDetectionLayer))
         {
             // Our raycast detected a floor within acceptable distance, become grounded and snap to floor if we are still airborne
+            transform.position = hit.point + (Vector3.up * gravityInvertion) * groundTouching;
             if (!onGround)
             {
                 onGround = true;
             }
-            transform.position = hit.point + (Vector3.up * gravityInvertion) * groundTouching;
         }
         else
         {
@@ -104,6 +108,8 @@ public class PlayerScript : MonoBehaviour
                 onGround = false;
             }
         }
+
+        return onGround;
     }
 
     private void Start()
@@ -111,17 +117,22 @@ public class PlayerScript : MonoBehaviour
         mainCamera = Camera.main;
         body = GetComponent<Rigidbody>();
 
-        SetMagneticState(MagnetTypes.red);
+        SetMagneticState(MagnetTypes.blu, false);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         // First we update our speed and move direction
         body.velocity = moveDirection * speed;
 
-        CheckForGround();
+        float rotationAmount = (body.velocity.magnitude * 33.333f * (acceleration + 1.0f)) * gravityInvertion;
 
-        if (onGround)
+        mesh.RotateAround(transform.position, Vector3.back, rotationAmount * Time.deltaTime);
+    }
+
+    private void FixedUpdate()
+    {
+        if (CheckIfGrounded())
         {
             acceleration = 0.0f;
         }

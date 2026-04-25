@@ -1,0 +1,27 @@
+# ProBuilder 4.5.2
+# https://unity3d.com/unity/features/worldbuilding/probuilder
+# 24/04/2026 23:34:12
+
+mtllib ./Cube.mtl
+o Cube
+
+g Cube
+v 4 -4 4
+v -4 -4 4
+v 4 4 4
+v -4 4 4
+v -4 -4 -4
+v -4 4 -4
+
+vt -4 -4
+vt 4 -4
+vt -4 4
+vt 4 4
+
+vn 0 0 -1
+vn 1 0 0
+
+usemtl win
+f 3/3/1 1/1/1 2/2/1 4/4/1
+f 4/3/2 2/1/2 5/2/2 6/4/2
+

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2000938117729646186}
   m_Layer: 3
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5e31bdc8409a2264587146731d2bff36, type: 2}
+  - {fileID: 2100000, guid: e5b8db6c01aea3e49a172aad97b4731a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,7 +143,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &4694107784827465738
 MonoBehaviour:
@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4da769419442b40accce552564d499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mesh: {fileID: 7551293894062779515}
   material: {fileID: 2000938117729646186}
   collisionDetectionLayer:
     serializedVersion: 2
@@ -169,6 +170,12 @@ MonoBehaviour:
   maxAcceleration: 16
   groundTouching: 0.5
   groundMaxDistance: 1
+  onGround: 0
+  magnetType: 0
+  acceleration: 0
+  gravityInvertion: 1
+  body: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!114 &6748359670392714926
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class CameraScript : MonoBehaviour
         transform.position = start_position;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         speed = Vector2.Distance(player.position, transform.position);
 

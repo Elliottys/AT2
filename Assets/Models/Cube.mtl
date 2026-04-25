@@ -1,0 +1,5 @@
+newmtl win
+map_Kd win.png
+Kd 1 1 1
+d 1
+
