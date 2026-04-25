@@ -190,7 +190,7 @@ public class PlayerScript : MonoBehaviour
         // First we update our speed and move direction
         newSpeedDuration -= Time.deltaTime;
 
-        if (transform.position.y > 99 || transform.position.y < 99 || transform.position.x < -50 || transform.position.x > 400)
+        if (transform.position.x < -256 || transform.position.x > 256 || transform.position.y < -256 || transform.position.y > 256)
         {
             moveDirection = defaultMoveDirection;
             Respawn();
