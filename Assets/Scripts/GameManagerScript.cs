@@ -19,12 +19,14 @@ public class GameManagerScript : MonoBehaviour
     public int modulesPassed = 0;
 
     public int maxModules;
+    public int attemptsLeft;
 
     private GameObject spawn;
     private GameObject goal;
 
     public float secondsIncreaseDifficulty;
     public float maxDifficulty;
+    public float difficultyMultiplierMinimum;
 
     private GameObject currentModule;
     private float difficulty = 0.0f;
@@ -36,7 +38,7 @@ public class GameManagerScript : MonoBehaviour
 
     private GameObject GetLevelModule(float chance)
     {
-        float moduleDifficulty = UnityEngine.Random.Range(0.0f, chance);
+        float moduleDifficulty = UnityEngine.Random.Range(modulesPassed / maxModules * difficultyMultiplierMinimum, chance);
 
         if (moduleDifficulty < 1.0f)
         {
@@ -62,8 +64,8 @@ public class GameManagerScript : MonoBehaviour
         module.transform.position = Vector3.zero;
 
         currentModule = module;
-        spawn = moduleToPlace.GetComponent<LevelModule>().start;
-        goal = moduleToPlace.GetComponent<LevelModule>().win;
+        spawn = moduleToPlace.GetComponent<LevelModuleScript>().start;
+        goal = moduleToPlace.GetComponent<LevelModuleScript>().win;
 
         bgm.Play();
         playerScript.Spawn(spawn.transform.position);
@@ -71,7 +73,7 @@ public class GameManagerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerScript.GetWin() == 2)
+        if (playerScript.GetState() == 2)
         {
             modulesPassed++;
 
@@ -79,7 +81,24 @@ public class GameManagerScript : MonoBehaviour
             {
                 SceneManager.LoadScene(2);
             }
-            GenerateLevelModule();
+            else
+            {
+                playerScript.SetState(0);
+                GenerateLevelModule();
+            }
+        }
+
+        if (playerScript.GetState() < 0)
+        {
+            attemptsLeft--;
+            if (attemptsLeft < 0)
+            {
+                SceneManager.LoadScene(3);
+            }
+            else
+            {
+                playerScript.SetState(0);
+            }
         }
     }
     

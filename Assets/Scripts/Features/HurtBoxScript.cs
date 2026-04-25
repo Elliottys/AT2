@@ -6,6 +6,7 @@ public class HurtBoxScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<PlayerScript>().SetState(-1);
             other.GetComponent<PlayerScript>().Respawn();
         }
     }

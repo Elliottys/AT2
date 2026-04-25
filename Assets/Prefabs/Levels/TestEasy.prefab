@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 92878059334867940, guid: 74999b345d45dba4c95d964c8a67b174, type: 3}
       propertyPath: m_Name
-      value: EasyTest
+      value: TestEasy
       objectReference: {fileID: 0}
     - target: {fileID: 336088390241553035, guid: 74999b345d45dba4c95d964c8a67b174, type: 3}
       propertyPath: m_Mesh

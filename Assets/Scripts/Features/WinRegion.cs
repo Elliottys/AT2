@@ -21,7 +21,7 @@ public class WinRegion : MonoBehaviour
             timer = secondsToWait;
             player = other.gameObject;
 
-            player.GetComponent<PlayerScript>().SetWinState(1);
+            player.GetComponent<PlayerScript>().SetState(1);
         }
     }
 
@@ -33,7 +33,7 @@ public class WinRegion : MonoBehaviour
 
             if (timer == 0.0f)
             {
-                player.GetComponent<PlayerScript>().SetWinState(2);
+                player.GetComponent<PlayerScript>().SetState(2);
             }
         }
     }

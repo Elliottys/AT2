@@ -174,10 +174,15 @@ MonoBehaviour:
   playerScript: {fileID: 0}
   levelsEasy:
   - {fileID: 931639595472674846, guid: 335db5133565fa5479d188894bee751c, type: 3}
+  - {fileID: 8797697001959711315, guid: a84583f72bb7e404181268641c9d2050, type: 3}
+  - {fileID: 4319466311728649186, guid: 35da20329c5c9694f89bf2eb4ea916c3, type: 3}
+  - {fileID: 7567226403926141849, guid: 33aae3efca12493499742fe5c08634b2, type: 3}
   levelsMed:
   - {fileID: 3515053942177475209, guid: 7e913b61d29e50a43850c00f8a563bb8, type: 3}
-  levelsHard:
   - {fileID: 2580611239520370289, guid: 54bc096db5876214b930d0b216fd46ec, type: 3}
+  - {fileID: 6833337813883083194, guid: 3c4ed934938ad9544a5b67f4e902ec59, type: 3}
+  levelsHard:
+  - {fileID: 1469490100253995940, guid: a225417081aa5ff4aa6301edfd2e063e, type: 3}
   bgmEasy:
   - {fileID: 8300000, guid: 21f63c7a39f557f48b5595ba30c527a0, type: 3}
   - {fileID: 8300000, guid: 12abb60f3c1b20245bf89f408b0fb5c7, type: 3}
@@ -190,5 +195,7 @@ MonoBehaviour:
   bgm: {fileID: 3624023044122081473}
   modulesPassed: 0
   maxModules: 9
+  attemptsLeft: 9
   secondsIncreaseDifficulty: 30
-  maxDifficulty: 8
+  maxDifficulty: 9
+  difficultyMultiplierMinimum: 2.4

@@ -31,13 +31,15 @@ public class PlayerScript : MonoBehaviour
     public AudioSource audDn;
     public AudioSource audLand;
 
+    private float newSpeedDuration = 0.0f;
+
     private MagnetTypes magnetType;
     private Vector3 spawnPosition;
     private bool onGround;
     private float acceleration = 0.0f;
     private float gravityInvertion = 1.0f;
 
-    private int winning = 0;
+    private int state = 0;
 
     private Rigidbody body;
     private Camera mainCamera;
@@ -46,7 +48,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            if (GetWin() == 0)
+            if (GetState() == 0)
             {
                 SetMagneticState(GetOppositePole(magnetType), true);
             }
@@ -61,11 +63,6 @@ public class PlayerScript : MonoBehaviour
     
     public void Respawn()
     {
-        if (GetWin() < 2)
-        {
-            audDie.Play();
-        }
-        SetWinState(0);
         transform.position = spawnPosition;
         moveDirection = defaultMoveDirection;
         gravityDirection = defaultGravityDirection;
@@ -73,20 +70,38 @@ public class PlayerScript : MonoBehaviour
         SetMagneticState(defaultMagnet, false);
     }
     
-    public void SetWinState(int value)
+    public void ChangeSpeed(Vector3 newDirection, float duration)
     {
-        winning = value;
+        newSpeedDuration = duration;
+        moveDirection = newDirection;
+    }
+
+    public void SetState(int value)
+    {
+        state = value;
+        if (value < 0)
+        {
+            audDie.Play();
+        }
+        if (value == 0)
+        {
+            Respawn();
+        }
         if (value == 1)
         {
             audWin.Play();
             moveDirection = moveDirection / 2;
             onGround = false;
         }
+        if (value > 1)
+        {
+            Respawn();
+        }
     }
     
-    public int GetWin()
+    public int GetState()
     {
-        return winning;
+        return state;
     }
     
     private MagnetTypes GetOppositePole(MagnetTypes type)
@@ -173,7 +188,20 @@ public class PlayerScript : MonoBehaviour
     private void Update()
     {
         // First we update our speed and move direction
-        body.velocity = moveDirection * speed;
+        newSpeedDuration -= Time.deltaTime;
+
+        if (newSpeedDuration < 0.0f)
+        {
+            body.velocity = defaultMoveDirection * speed;
+        }
+        else
+        {
+            body.velocity = moveDirection * newSpeedDuration;
+            if (body.velocity.magnitude < (defaultMoveDirection * speed).magnitude)
+            {
+                newSpeedDuration = 0.0f;
+            }
+        }
 
         float rotationAmount = (body.velocity.magnitude * 33.333f * (acceleration + 1.0f)) * gravityInvertion;
 
@@ -189,6 +217,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             acceleration = Mathf.Clamp(acceleration + increasingAcceleration, 0, maxAcceleration);
+
 
             body.velocity += (gravityDirection * acceleration) * gravityInvertion;
         }

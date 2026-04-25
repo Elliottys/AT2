@@ -7,8 +7,8 @@ public class UIScript : MonoBehaviour
 
     public TextMeshProUGUI textObj;
 
-    private void Update()
+    private void LateUpdate()
     {
-        textObj.text = gameManager.modulesPassed + " / " + gameManager.maxModules + " Modules";
+        textObj.text = "Courses to Complete: " + (gameManager.maxModules - gameManager.modulesPassed) + "\nAttempts Left: " + gameManager.attemptsLeft;
     }
 }
