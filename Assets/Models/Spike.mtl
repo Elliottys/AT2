@@ -1,0 +1,5 @@
+newmtl spiky
+map_Kd C:/Repositories/AT2/Assets/Textures/spiky.png
+Kd 1 1 1
+d 1
+
